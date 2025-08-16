@@ -132,3 +132,15 @@ Then, navigate to the dashboards tab:
 ## Learn More
 
 To learn more about each respective service, check out the `README.md` for each.
+
+
+
+
+
+TODO:
+
+- confirm latest versions of images (ex storage, permissions, etc)
+- check readme's of other services and consolidate stuff to the main readme.
+- get picture of pipeline
+- fix grafana provisioning stuff
+- better breakdown of http route and publishing
