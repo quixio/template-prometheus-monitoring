@@ -1,0 +1,14 @@
+{
+  "TemplateId": "prometheus-monitoring",
+  "Name": "Prometheus Monitoring Template",
+  "SshUrl": "https://github.com/quixio/template-prometheus-monitoring.git",
+  "Branch": "main",
+  "Description": "Deploy a monitoring stack that can handle metrics from any number of other desired projects.",
+  "Tags": {
+    "languages": ["python"],
+    "category": ["sample", "demo"]
+  },
+  "ImageFile": "images/pipeline.png",
+  "ReadmeFile": "README.md",
+  "Published": true
+}

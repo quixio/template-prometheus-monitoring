@@ -1,0 +1,21 @@
+name: resource-usage-generator-app
+language: python
+variables:
+  - name: PUSH_GATEWAY_PROXY_URL
+    inputType: FreeText
+    description: Prometheus Push gateway proxy url.
+    required: true
+  - name: PUSH_GATEWAY_PROXY_PASSWORD
+    inputType: Secret
+    description: Prometheus push gateway proxy password.
+    defaultValue: push_gateway_proxy_pw
+    required: true
+  - name: RESOURCE_TYPE
+    inputType: FreeText
+    description: Type of resource to generate usage measurements for.
+    defaultValue: memory
+    required: true
+dockerfile: dockerfile
+runEntryPoint: main.py
+defaultFile: main.py
+libraryItemId: starter-source

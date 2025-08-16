@@ -1,0 +1,127 @@
+# Quix Project Descriptor
+# This file describes the data pipeline and configuration of resources of a Quix Project.
+
+metadata:
+  version: 1.0
+
+# This section describes the Deployments of the data pipeline
+deployments:
+  - name: Prometheus
+    application: prometheus
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 500
+      memory: 2000
+      replicas: 1
+    network:
+      serviceName: prometheus
+      ports:
+        - port: 80
+          targetPort: 9090
+  - name: Prometheus Push Gateway
+    application: prometheus-push-gateway
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 500
+      replicas: 1
+    network:
+      serviceName: prometheus-push-gateway
+      ports:
+        - port: 80
+          targetPort: 9091
+  - name: Push Gateway Proxy
+    application: push-gateway-proxy
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 500
+      replicas: 1
+    publicAccess:
+      enabled: true
+      urlPrefix: push-gateway-proxy
+    network:
+      serviceName: push-gateway-proxy
+      ports:
+        - port: 80
+          targetPort: 80
+    variables:
+      - name: PUSH_GATEWAY_URL
+        inputType: FreeText
+        required: true
+        value: http://prometheus-push-gateway
+      - name: PUSH_GATEWAY_PROXY_PASSWORD
+        inputType: Secret
+        required: true
+        secretKey: push_gateway_proxy_pw
+  - name: memory-usage-generator-app
+    application: resource-usage-generator-app
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 500
+      replicas: 1
+    variables:
+      - name: PUSH_GATEWAY_PROXY_URL
+        inputType: FreeText
+        description: Prometheus Push gateway proxy url.
+        required: true
+        value: http://push-gateway-proxy
+      - name: PUSH_GATEWAY_PROXY_PASSWORD
+        inputType: Secret
+        description: Prometheus push gateway proxy password.
+        required: true
+        secretKey: push_gateway_proxy_pw
+      - name: RESOURCE_TYPE
+        inputType: FreeText
+        description: Type of resource to generate usage measurements for.
+        required: true
+        value: memory
+  - name: cpu-usage-generator-app
+    application: resource-usage-generator-app
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 500
+      replicas: 1
+    variables:
+      - name: PUSH_GATEWAY_PROXY_URL
+        inputType: FreeText
+        description: Prometheus Push gateway proxy url.
+        required: true
+        value: http://push-gateway-proxy
+      - name: PUSH_GATEWAY_PROXY_PASSWORD
+        inputType: Secret
+        description: Prometheus push gateway proxy password.
+        required: true
+        secretKey: push_gateway_proxy_pw
+      - name: RESOURCE_TYPE
+        inputType: FreeText
+        description: Type of resource to generate usage measurements for.
+        required: true
+        value: cpu
+  - name: Grafana
+    application: grafana
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 1000
+      memory: 1500
+      replicas: 1
+    publicAccess:
+      enabled: true
+      urlPrefix: grafana
+    network:
+      ports:
+        - port: 80
+          targetPort: 3000
+    variables:
+      - name: GF_SECURITY_ADMIN_PASSWORD
+        inputType: Secret
+        required: true
+        secretKey: grafana_admin_pw

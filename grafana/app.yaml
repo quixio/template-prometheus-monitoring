@@ -1,0 +1,12 @@
+name: Grafana
+language: python
+variables:
+  - name: GF_SECURITY_ADMIN_PASSWORD
+    inputType: Secret
+    description: Grafana admin password.
+    defaultValue: grafana_admin_pw
+    required: true
+dockerfile: dockerfile
+runEntryPoint: dockerfile
+defaultFile: dockerfile
+libraryItemId: starter-source

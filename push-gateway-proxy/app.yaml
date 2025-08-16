@@ -1,0 +1,17 @@
+name: Push Gateway proxy
+language: python
+variables:
+  - name: PUSH_GATEWAY_URL
+    inputType: FreeText
+    description: Service url to the Prometheus push gateway.
+    defaultValue: prometheus-push-gateway:80
+    required: true
+  - name: PUSH_GATEWAY_PROXY_PASSWORD
+    inputType: Secret
+    description: Prometheus push gateway proxy password.
+    defaultValue: push_gateway_proxy_password
+    required: true
+dockerfile: dockerfile
+runEntryPoint: main.py
+defaultFile: main.py
+libraryItemId: http-api-sample
