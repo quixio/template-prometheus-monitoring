@@ -55,12 +55,13 @@ up and running.
 ## How it Works
 
 The `PushgatewayProxy` is set up to receive project-external traffic with an 
-authenticated HTTP endpoint that Applications submit their Prometheus metrics to.
+authenticated HTTP endpoint that Applications submit their Prometheus metrics to on 
+a cadence (set by user, usually best to align with `Prometheus` scrape interval).
 
 The `Pushgateway` service receives the forwarded request from the `PushgatewayProxy`
 and stores them until `Prometheus` scrapes them.
 
-On a cadence (set in `prometheus.yml` to `15s`), the metrics are all then scraped by 
+On a `15s` cadence (set in `prometheus.yml`), the metrics are all then scraped by 
 `Prometheus`, a time series database. The data is now catalogued and ready for use.
 
 `Grafana`, a realtime dashboarding application (also gated with credentials), 
@@ -69,19 +70,55 @@ provides visualizations through custom-built queries made on the Prometheus inst
 
 
 
-## Publishing Metrics to the Pushgateway (Prometheus)
 
-### Included Example Application
-This template includes two different deployments of the `resource-usage-generator-app`
-to showcase publishing metrics to the `Pushgateway` using Python's `Prometheus` library.
+## Publishing Metrics to Prometheus
 
-To learn more, check out the `metrics_scraper.py` file which houses most of the data
+
+### Pushgateway Proxy
+To publish metrics to Prometheus, HTTP requests (containing Prometheus metrics) must be 
+sent to the `Pushgateway Proxy` (see [how it works](#how-it-works) for more
+info on the underlying stack).
+
+#### HTTP Endpoint Url
+
+To get the necessary HTTP endpoint path, simply navigate to the pipeline view and
+copy the link presented by the `Pushgateway Proxy`:
+
+![img](images/proxy_link.png)
+
+You can also copy it in the deployment edit screen, including editing the prefix name, 
+should you wish.
+
+![img](images/proxy_edit.png)
+
+> NOTE: do not remove public access, otherwise applications external to the project will
+> not be able to communicate with the proxy!
+
+#### HTTP Endpoint Authentication
+
+The `Pushgateway Proxy` also requires a password to send data to it. Use the same
+password set for `pushgateway_proxy_pw` during [project syncing](#setting-secrets).
+
+
+
+### Publishing Example
+
+This template includes two different deployments of the `resource-usage-generator-app`,
+called `CPU Usage Example App` and `RAM Usage Example App`.
+
+The apps showcase publishing metrics to the `Pushgateway Proxy` using Python's `prometheus` 
+library (it also handles the authentication).
+
+To learn more, check out their `metrics_scraper.py` file which houses most of the data
 scraping/pushing logic.
 
+> Note: This example has the applications hitting a "localized" service endpoint on the 
+> HTTP proxy for the sake of removing any additional user setup for the example. 
+> When sending metrics from applications within other projects (as recommended),
+> use the HTTP proxy url as [explained here](#publishing-metrics-to-prometheus).
 
-### HTTP endpoint
 
-INFO HERE ABOUT IT
+
 
 
 
@@ -97,12 +134,7 @@ This means you can have one centralized project for monitoring, with separate
 environments for handling dev or prod operations, for example.
 
 Then, applications can send metrics to it from any other project using the respective 
-`Pushgateway Proxy` URL + password.
-
-> Note: This example has the applications hitting a "localized" service endpoint on the 
-> HTTP proxy for the sake of removing any additional user setup for the example. 
-> When sending metrics from applications within other projects (as recommended),
-> use the HTTP proxy url as [explained here](#http-endpoint).
+`Pushgateway Proxy` URL + password, [as explained here](#publishing-metrics-to-prometheus).
 
 
 
@@ -115,7 +147,7 @@ Click on the blue link to log in to Grafana.
 ![img](images/grafana_link.png)
 
 - **username**: `admin`
-- **password**: whatever value `grafana_password` was set to when
+- **password**: whatever value `grafana_admin_pw` was set to when
   first setting up the template.
 
 ![img](images/grafana_login.png)
@@ -124,23 +156,27 @@ Then, navigate to the dashboards tab:
 
 ![img](images/grafana_home.png)
 
-### Exploring the Dashboard
+
+### Exploring the Example Dashboard
+
+The included dashboard showcases how to show graphs that include various applications 
+and separate them by the project (workspace) they originate from (of course, there is
+only one project in the included example, which is the current project).
+
+In this case, a raw count of average messages processed per app and per environment is 
+shown.
 
 ![grafana](images/grafana.png)
 
 
-## Learn More
+### Adding/Editing Dashboards
 
-To learn more about each respective service, check out the `README.md` for each.
+You can edit dashboards interactively and import/export them as needed via JSON files,
+which can then be added to the `/grafana/provisioning/dashboards` folder.
 
+Other data sources can also be added, but only Prometheus is included in this example.
 
+If state is used, you can create/edit dashboards and changes will persist as desired.
 
-
-
-TODO:
-
-- confirm latest versions of images (ex storage, permissions, etc)
-- check readme's of other services and consolidate stuff to the main readme.
-- get picture of pipeline
-- fix grafana provisioning stuff
-- better breakdown of http route and publishing
+> NOTE: be sure to backup/export any important dashboards, which can provide useful 
+> restore points.

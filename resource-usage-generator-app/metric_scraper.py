@@ -50,7 +50,8 @@ class MetricsService:
             except Exception:
                 traceback.print_exc()
             finally:
-                time.sleep(15)  # Push metrics every 15 seconds
+                # Push metrics every 15 seconds, aligns with Prometheus scrape interval
+                time.sleep(15)
 
     def publish_event_processed_metrics(self):
         def publish(row, key, *_):
