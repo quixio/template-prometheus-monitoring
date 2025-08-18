@@ -48,8 +48,8 @@ def main():
         os.environ.get("Quix__Deployment__ReplicaName", "local"),
         CONSUMER_GROUP,
         os.environ["Quix__Workspace__Id"],
-        os.environ["PUSH_GATEWAY_PROXY_URL"],
-        os.environ["PUSH_GATEWAY_PROXY_PASSWORD"]
+        os.environ["PUSHGATEWAY_PROXY_URL"],
+        os.environ["PUSHGATEWAY_PROXY_PASSWORD"]
     )
 
     # Setup necessary objects
