@@ -106,6 +106,8 @@ password set for `pushgateway_proxy_pw` during [project syncing](#setting-secret
 This template includes two different deployments of the `resource-usage-generator-app`,
 called `CPU Usage Example App` and `RAM Usage Example App`.
 
+![img](/images/apps.png)
+
 The apps showcase publishing metrics to the `Pushgateway Proxy` using Python's `prometheus` 
 library (it also handles the authentication).
 
