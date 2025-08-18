@@ -8,7 +8,5 @@ data visualization/dashboarding tool.
 
 ## How to Use
 
-There is nothing special to configure here if deploying with this template.
-
-In general, just ensure that Prometheus is scraping the provided `Pushgateway` in its 
-configuration.
+Ensure that Prometheus is scraping the desired endpoints, which in a Quix-based application 
+monitoring configuration, be at least a `Prometheus Pushgateway`.

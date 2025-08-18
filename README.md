@@ -91,8 +91,8 @@ should you wish.
 
 ![img](images/proxy_edit.png)
 
-> NOTE: do not remove public access, otherwise applications external to the project will
-> not be able to communicate with the proxy!
+> NOTE: do not remove public access, otherwise the link will not exist, which means 
+> applications external to the project will not be able to communicate with the proxy.
 
 #### HTTP Endpoint Authentication
 

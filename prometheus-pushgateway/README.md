@@ -21,11 +21,3 @@ work well for many Kubernetes or microservice-based architectures
 The Prometheus `Pushgateway` is an official pattern/offering by Prometheus to allow
 a single endpoint that any number of non-static applications can collectively publish 
 their metrics to. Prometheus then scrapes the `Pushgateway` for this data.
-
-
-## How to Use
-
-There is nothing special to configure here if deploying with this template.
-
-In general, just ensure that Prometheus is scraping this service in its configuration.
-

@@ -18,17 +18,17 @@ Also upon deployment, you'll need to generate a password which applications must
 provide when attempting to publish data to the public URL. You'll need to refresh the
 deployment once this is set.
 
-## Sending Prometheus Data to the Proxy
 
-You will need to provide the `Prometheus Pushgateway Proxy` URL and its respective password
-(which you generated earlier) to the `push_to_gateway` function from Python's 
-`prometheus_client` library (which should also include your desired metrics).
+### HTTP Endpoint Url
 
-You can find the URL in Quix Cloud by opening the `deployments` list from the
-left side panel and copying the url from the blue box near the `Pushgateway Proxy` 
-deployment name:
+To get the necessary HTTP endpoint path, simply navigate to the pipeline view and
+copy the link presented by the `pushgateway-proxy`.
 
-![quix_url](quix_url.png)
+> NOTE: do not remove public access, otherwise the link will not exist, which means 
+> applications external to the project will not be able to communicate with the proxy.
 
-You can [check out this example python file](../resource-usage-generator-app/metric_scraper.py)
-(from the `resource-usage-generator-app` example app in this template) for more details on how to use the `prometheus_client`.
+### HTTP Endpoint Authentication
+
+The `pushgateway-proxy` also requires a password to send data to it. Use the same
+password used for `PUSHGATEWAY_PROXY_PASSWORD` when generating the deployment for 
+`pushgateway-proxy`.
