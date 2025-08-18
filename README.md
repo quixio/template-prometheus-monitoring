@@ -54,14 +54,14 @@ up and running.
 
 ## How it Works
 
-The `PushGatewayProxy` is set up to receive project-external traffic with an 
+The `PushgatewayProxy` is set up to receive project-external traffic with an 
 authenticated HTTP endpoint that Applications submit their Prometheus metrics to.
 
-The `PushGateway` service receives the forwarded request from the `PushGatewayProxy`
+The `Pushgateway` service receives the forwarded request from the `PushgatewayProxy`
 and stores them until `Prometheus` scrapes them.
 
-On a cadence, the metrics are all then scraped by `Prometheus`, 
-a time series database. The data is now catalogued and ready for use.
+On a cadence (set in `prometheus.yml` to `15s`), the metrics are all then scraped by 
+`Prometheus`, a time series database. The data is now catalogued and ready for use.
 
 `Grafana`, a realtime dashboarding application (also gated with credentials), 
 provides visualizations through custom-built queries made on the Prometheus instance.
@@ -69,11 +69,11 @@ provides visualizations through custom-built queries made on the Prometheus inst
 
 
 
-## Publishing Metrics to the PushGateway (Prometheus)
+## Publishing Metrics to the Pushgateway (Prometheus)
 
 ### Included Example Application
 This template includes two different deployments of the `resource-usage-generator-app`
-to showcase publishing metrics to the `PushGateway` using Python's `Prometheus` library.
+to showcase publishing metrics to the `Pushgateway` using Python's `Prometheus` library.
 
 To learn more, check out the `metrics_scraper.py` file which houses most of the data
 scraping/pushing logic.
@@ -97,7 +97,7 @@ This means you can have one centralized project for monitoring, with separate
 environments for handling dev or prod operations, for example.
 
 Then, applications can send metrics to it from any other project using the respective 
-`Push Gateway Proxy` URL + password.
+`Pushgateway Proxy` URL + password.
 
 > Note: This example has the applications hitting a "localized" service endpoint on the 
 > HTTP proxy for the sake of removing any additional user setup for the example. 

@@ -19,8 +19,8 @@ deployments:
       ports:
         - port: 80
           targetPort: 9090
-  - name: Prometheus Push Gateway
-    application: prometheus-push-gateway
+  - name: Prometheus Pushgateway
+    application: prometheus-pushgateway
     version: latest
     deploymentType: Service
     resources:
@@ -28,12 +28,12 @@ deployments:
       memory: 500
       replicas: 1
     network:
-      serviceName: prometheus-push-gateway
+      serviceName: prometheus-pushgateway
       ports:
         - port: 80
           targetPort: 9091
-  - name: Push Gateway Proxy
-    application: push-gateway-proxy
+  - name: Pushgateway Proxy
+    application: pushgateway-proxy
     version: latest
     deploymentType: Service
     resources:
@@ -42,9 +42,9 @@ deployments:
       replicas: 1
     publicAccess:
       enabled: true
-      urlPrefix: push-gateway-proxy
+      urlPrefix: pushgateway-proxy
     network:
-      serviceName: push-gateway-proxy
+      serviceName: pushgateway-proxy
       ports:
         - port: 80
           targetPort: 80
@@ -52,7 +52,7 @@ deployments:
       - name: PUSH_GATEWAY_URL
         inputType: FreeText
         required: true
-        value: http://prometheus-push-gateway
+        value: http://prometheus-pushgateway
       - name: PUSH_GATEWAY_PROXY_PASSWORD
         inputType: Secret
         required: true
@@ -70,7 +70,7 @@ deployments:
         inputType: FreeText
         description: Prometheus Push gateway proxy url.
         required: true
-        value: http://push-gateway-proxy
+        value: http://pushgateway-proxy
       - name: PUSH_GATEWAY_PROXY_PASSWORD
         inputType: Secret
         description: Prometheus push gateway proxy password.
@@ -94,7 +94,7 @@ deployments:
         inputType: FreeText
         description: Prometheus Push gateway proxy url.
         required: true
-        value: http://push-gateway-proxy
+        value: http://pushgateway-proxy
       - name: PUSH_GATEWAY_PROXY_PASSWORD
         inputType: Secret
         description: Prometheus push gateway proxy password.

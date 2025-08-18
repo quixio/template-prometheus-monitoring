@@ -1,6 +1,5 @@
 name: Prometheus
-language: python
-variables: []
+language: docker
 dockerfile: dockerfile
-runEntryPoint: dockerfile
-defaultFile: prometheus.yml
+defaultFile: dockerfile
+libraryItemId: prometheus

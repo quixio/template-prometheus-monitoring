@@ -10,5 +10,5 @@ data visualization/dashboarding tool.
 
 There is nothing special to configure here if deploying with this template.
 
-In general, just ensure that Prometheus is scraping the provided `Push Gateway` in its 
+In general, just ensure that Prometheus is scraping the provided `Pushgateway` in its 
 configuration.

@@ -1,10 +1,10 @@
-# Prometheus Push Gateway Proxy
+# Prometheus Pushgateway Proxy
 
 This service provides a way for applications to publish metric data to
 `Prometheus` through an authenticated public HTTP endpoint.
 
 It is a Flask app that simply forwards its traffic to an actual 
-`Prometheus Push Gateway` instance, which is scraped from periodically with `Prometheus`.
+`Prometheus Pushgateway` instance, which is scraped from periodically with `Prometheus`.
 
 ## How to Use
 
@@ -20,12 +20,12 @@ deployment once this is set.
 
 ## Sending Prometheus Data to the Proxy
 
-You will need to provide the `Prometheus Push Gateway Proxy` URL and its respective password
+You will need to provide the `Prometheus Pushgateway Proxy` URL and its respective password
 (which you generated earlier) to the `push_to_gateway` function from Python's 
 `prometheus_client` library (which should also include your desired metrics).
 
 You can find the URL in Quix Cloud by opening the `deployments` list from the
-left side panel and copying the url from the blue box near the `Push Gateway Proxy` 
+left side panel and copying the url from the blue box near the `Pushgateway Proxy` 
 deployment name:
 
 ![quix_url](quix_url.png)

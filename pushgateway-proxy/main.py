@@ -4,13 +4,13 @@ import os
 
 app = Flask(__name__)
 
-PUSH_GATEWAY_URL = os.getenv("PUSH_GATEWAY_URL")
-PUSH_GATEWAY_PROXY_PW = os.getenv("PUSH_GATEWAY_PROXY_PASSWORD")
+PUSHGATEWAY_URL = os.getenv("PUSHGATEWAY_URL")
+PUSHGATEWAY_PROXY_PW = os.getenv("PUSHGATEWAY_PROXY_PASSWORD")
 
 # Authenticate requests
 def authenticate(req):
     auth = req.authorization
-    return auth and auth.username == 'admin' and auth.password == PUSH_GATEWAY_PROXY_PW
+    return auth and auth.username == 'admin' and auth.password == PUSHGATEWAY_PROXY_PW
 
 @app.route('/', defaults={'path': ''}, methods=['GET', 'POST', 'PUT', 'DELETE'])
 @app.route('/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE'])
@@ -21,7 +21,7 @@ def proxy(path):
     # Forward request to Pushgateway
     resp = requests.request(
         method=request.method,
-        url=f"{PUSH_GATEWAY_URL}/{path}",
+        url=f"{PUSHGATEWAY_URL}/{path}",
         headers={key: value for key, value in request.headers if key.lower() != 'host'},
         data=request.get_data(),
         params=request.args,

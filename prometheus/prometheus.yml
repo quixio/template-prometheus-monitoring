@@ -4,4 +4,4 @@ global:
 scrape_configs:
   - job_name: 'application-metrics'
     static_configs:
-      - targets: ['prometheus-push-gateway:80']
+      - targets: ['prometheus-pushgateway:80']
