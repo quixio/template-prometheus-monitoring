@@ -49,15 +49,15 @@ deployments:
         - port: 80
           targetPort: 80
     variables:
-      - name: PUSH_GATEWAY_URL
+      - name: PUSHGATEWAY_URL
         inputType: FreeText
         required: true
         value: http://prometheus-pushgateway
-      - name: PUSH_GATEWAY_PROXY_PASSWORD
+      - name: PUSHGATEWAY_PROXY_PASSWORD
         inputType: Secret
         required: true
         secretKey: push_gateway_proxy_pw
-  - name: memory-usage-generator-app
+  - name: RAM Usage Example App
     application: resource-usage-generator-app
     version: latest
     deploymentType: Service
@@ -66,12 +66,12 @@ deployments:
       memory: 500
       replicas: 1
     variables:
-      - name: PUSH_GATEWAY_PROXY_URL
+      - name: PUSHGATEWAY_PROXY_URL
         inputType: FreeText
         description: Prometheus Push gateway proxy url.
         required: true
         value: http://pushgateway-proxy
-      - name: PUSH_GATEWAY_PROXY_PASSWORD
+      - name: PUSHGATEWAY_PROXY_PASSWORD
         inputType: Secret
         description: Prometheus push gateway proxy password.
         required: true
@@ -81,7 +81,7 @@ deployments:
         description: Type of resource to generate usage measurements for.
         required: true
         value: memory
-  - name: cpu-usage-generator-app
+  - name: CPU Usage Example App
     application: resource-usage-generator-app
     version: latest
     deploymentType: Service
@@ -90,12 +90,12 @@ deployments:
       memory: 500
       replicas: 1
     variables:
-      - name: PUSH_GATEWAY_PROXY_URL
+      - name: PUSHGATEWAY_PROXY_URL
         inputType: FreeText
         description: Prometheus Push gateway proxy url.
         required: true
         value: http://pushgateway-proxy
-      - name: PUSH_GATEWAY_PROXY_PASSWORD
+      - name: PUSHGATEWAY_PROXY_PASSWORD
         inputType: Secret
         description: Prometheus push gateway proxy password.
         required: true
