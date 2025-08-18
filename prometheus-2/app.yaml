@@ -1,0 +1,5 @@
+name: prometheus-2
+language: docker
+dockerfile: dockerfile
+defaultFile: dockerfile
+libraryItemId: prometheus
