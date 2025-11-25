@@ -106,6 +106,10 @@ password set for `pushgateway_proxy_pw` during [project syncing](#setting-secret
 This template includes two different deployments of the `resource-usage-generator-app`,
 called `CPU Usage Example App` and `RAM Usage Example App`.
 
+These example services are organized in a separate group called `Example usage`
+(see `group` field in `quix.yaml`) to keep them visually distinct from the core
+monitoring stack services.
+
 ![img](/images/apps.png)
 
 The apps showcase publishing metrics to the `Pushgateway Proxy` using Python's `prometheus` 

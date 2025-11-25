@@ -58,6 +58,7 @@ deployments:
         required: true
         secretKey: pushgateway_proxy_pw
   - name: RAM Usage Example App
+    group: Example usage
     application: resource-usage-generator-app
     version: latest
     deploymentType: Service
@@ -82,6 +83,7 @@ deployments:
         required: true
         value: memory
   - name: CPU Usage Example App
+    group: Example usage
     application: resource-usage-generator-app
     version: latest
     deploymentType: Service
@@ -125,3 +127,4 @@ deployments:
         inputType: Secret
         required: true
         secretKey: grafana_admin_pw
+
